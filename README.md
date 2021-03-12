@@ -1,17 +1,5 @@
 #PomodoroUA 
+A productivity app made for students of Universidade de Aveiro, using Flutter.
 
-Mariana Ladeiro, 92964, g03
-
-Para fazer login e testar a aplicação toda clique no círculo onde diz 'GU' 
-na página principal.
-Logins possíveis:
- mail: a@ua.pt
- password: apassword
-
- mail: b@ua.pt
- password: bpassword
-
- mail: c@ua.pt
- password: cpassword
-
+![PomodoroUA](https://user-images.githubusercontent.com/60887272/110957786-df758300-8343-11eb-9dc8-40318d38b894.jpg)
  
