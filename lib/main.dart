@@ -1,80 +1,72 @@
 import 'dart:async';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:pomodoroua_flutter/timer/TimerPage.dart';
 import 'HomePage.dart';
-import 'Login.dart';
-import 'CoursePage.dart';
+import 'calendar/CalendarPage.dart';
+import 'notes/NotesPage.dart';
 
-void main() => runApp(MaterialApp(
-  home: Login(),
-));
+Future<void> main() async {
 
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
-class Home extends StatefulWidget {
-  int tab;
-  Home(int i) {
-    this.tab = i;
-  }
+  runApp(MyApp());
+}
 
+class MyApp extends StatefulWidget{
+  @override
   State<StatefulWidget> createState() {
-    return _HomeState(this.tab);
+    return MyAppState();
   }
 }
 
-class _HomeState extends State<Home> {
-  int currentTabIndex = 0;
-  int _tabIndex = 0;
-
-  _HomeState(int tab) {
-    this._tabIndex = tab;
-  }
-
-  onTapped(int index) {
-    setState(() {
-      currentTabIndex = index;
-    });
-  }
-
-  List<Widget> tabs = [
+class MyAppState extends State<MyApp>{
+  int _selectedPage = 0;
+  final _pageOptions = [
     HomePage(),
-    CoursePage(),
+    TimerPage(),
+    CalendarPage(),
+    NotesPage(),
   ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _tabIndex = index;
-    });
-  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: tabs[_tabIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        currentIndex: _tabIndex,
-        unselectedItemColor: Colors.black,
-        selectedItemColor: Color.fromRGBO(147, 172, 243, 1),
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text("Home"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.access_time),
-            title: Text("Timer"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notes),
-            title: Text("Notes"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            title: Text("Calendar"),
-          )
-        ],
+    return MaterialApp(
+      home: Scaffold(
+        body: _pageOptions[_selectedPage],
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Color.fromRGBO(147, 172, 243, 1),
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedPage,
+          onTap: (int index) {
+            setState(() {
+              _selectedPage = index;
+            });
+          },
+          items: [
+            BottomNavigationBarItem(
+              icon:Icon(Icons.home),
+              title: Text('Home')
+            ),
+            BottomNavigationBarItem(
+                icon:Icon(Icons.av_timer),
+                title: Text('Timer')
+            ),
+            BottomNavigationBarItem(
+                icon:Icon(Icons.calendar_today),
+                title: Text('Calendar')
+            ),
+            BottomNavigationBarItem(
+                icon:Icon(Icons.notes),
+                title: Text('ToDo')
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
+
+

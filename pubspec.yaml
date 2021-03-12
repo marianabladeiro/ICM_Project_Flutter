@@ -24,18 +24,37 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #Firebase
+  firebase_core: "0.5.3"
+  firebase_auth: "^0.18.4+1"
+  firebase_database: ^4.4.0
+  provider: ^4.3.2+3
+  flutter_google_places: ^0.2.3
+  geocoder: ^0.2.1
+
   intl: ^0.16.1
-  flutter_bloc: ^0.15.0
-  equatable: ^0.2.0
+  flutter_bloc: ^6.1.1
+  equatable: ^1.2.5
   wave: ^0.0.8
   syncfusion_flutter_gauges: ^18.2.44
   liquid_progress_indicator: ^0.3.2
   percent_indicator: "^2.1.7+2"
   table_calendar: ^2.3.2
+  flutter_local_notifications: ^3.0.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.1
+  geocoding: ^1.0.5
+  shared_preferences: ^0.5.12+4
+  uuid: ^2.2.2
+  camera: ^0.6.3+2
+  path_provider: ^1.6.24
+  path: ^1.7.0
+  image_picker: ^0.6.7+17
+  charts_flutter: ^0.9.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +77,7 @@ flutter:
     - images/logo-combranco.png
     - images/ua_pic.png
     - images/statistics.jpeg
+    - images/evaluation.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

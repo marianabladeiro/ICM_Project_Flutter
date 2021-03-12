@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pomodoroua_flutter/timer/TimerPage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'main.dart';
-import 'HomePage.dart';
-import 'notes/NotesPage.dart';
-import 'calendar/CalendarPage.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,18 +9,23 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final TextEditingController emailController =
-  new TextEditingController(text: "ua@ua.pt");
-  final TextEditingController passwordController =
-  new TextEditingController(text: "ua");
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
         .copyWith(statusBarColor: Colors.transparent));
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.lightGreen, //change your color here
+        ),
+        title: Text(""),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Container(
-
         child: ListView(
           children: <Widget>[
             headerSection(),
@@ -35,23 +37,6 @@ class _LoginState extends State<Login> {
     );
   }
 
-  signIn(String email, pass) async {
-    const String email_fixed = 'ua@ua.pt';
-    const String pass_fixed = 'ua';
-    if (email == email_fixed && pass_fixed == pass) {
-      Navigator.of(context).popUntil((route) => route.isFirst);
-      await new Future.delayed(new Duration(milliseconds: 500));
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()), //TODO change this
-        );
-      //Navigator.pushReplacement(context,
-      //  MaterialPageRoute(builder: (BuildContext context) => MyHomePage(0)));
-      //} else {}
-    }
-  }
-
-
   Container buttonSection() {
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -61,8 +46,20 @@ class _LoginState extends State<Login> {
       child: RaisedButton(
         child: Text("Authenticate", style: TextStyle(color: Colors.white)),
         color: Colors.lightGreen,
-        onPressed: () {
-          signIn(emailController.text, passwordController.text);
+        onPressed: () async {
+          try {
+            UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                email: emailController.text,
+                password: passwordController.text,
+            );
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MyApp()));
+          } on FirebaseAuthException catch (e) {
+            if (e.code == 'user-not-found') {
+              print('No user found for that email.');
+            } else if (e.code == 'wrong-password') {
+              print('Wrong password provided for that user.');
+            }
+          }
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       ),
@@ -85,6 +82,7 @@ class _LoginState extends State<Login> {
                   borderSide: BorderSide(color: Colors.black)),
               hintStyle: TextStyle(color: Colors.black),
             ),
+
           ),
           SizedBox(height: 30.0),
           TextFormField(
@@ -99,6 +97,7 @@ class _LoginState extends State<Login> {
                   borderSide: BorderSide(color: Colors.black)),
               hintStyle: TextStyle(color: Colors.black),
             ),
+
           ),
         ],
       ),
@@ -115,7 +114,4 @@ class _LoginState extends State<Login> {
       )
     );
   }
-
-
-  
 }

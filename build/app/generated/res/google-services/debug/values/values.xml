@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">861013655766-5vu43uv25cf7bf73kbvrba5qrnfs91sr.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://icmproject-2c3cb.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">861013655766</string>
+    <string name="google_api_key" translatable="false">AIzaSyDiuyIgCSaUZfsft8FZczGsTTcUkndM_pA</string>
+    <string name="google_app_id" translatable="false">1:861013655766:android:ce09465b5ee775b77e4977</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDiuyIgCSaUZfsft8FZczGsTTcUkndM_pA</string>
+    <string name="google_storage_bucket" translatable="false">icmproject-2c3cb.appspot.com</string>
+    <string name="project_id" translatable="false">icmproject-2c3cb</string>
+</resources>
